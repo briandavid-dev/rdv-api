@@ -29,7 +29,7 @@ app.get("/api1/cc", (req, res) => {
 });
 
 app.get("/api1/dd", (req, res) => {
-  res.json({ codigo: "dd" });
+  res.json({ codigo: "ddd" });
 });
 
 // Default port: 8080
