@@ -29,7 +29,7 @@ app.get("/api-rdv/cc", (req, res) => {
 });
 
 app.get("/api-rdv/dd", (req, res) => {
-  res.json({ codigo: "golgo" });
+  res.json({ codigo: "golgo prueba de subida" });
 });
 
 // Default port: 8080
