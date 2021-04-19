@@ -13,22 +13,22 @@ var pool = mysql.createPool({
 
 app.use(cors());
 
-app.get("/api1/", (req, res) => {
+app.get("/api-rdv/", (req, res) => {
   pool.query("SELECT * FROM post LIMIT 10", function (error, results, fields) {
     if (error) throw error;
     res.json({ codigo: "1", results });
   });
 });
 
-app.get("/api1/bb", (req, res) => {
+app.get("/api-rdv/bb", (req, res) => {
   res.json({ codigo: "2" });
 });
 
-app.get("/api1/cc", (req, res) => {
+app.get("/api-rdv/cc", (req, res) => {
   res.json({ codigo: "cc" });
 });
 
-app.get("/api1/dd", (req, res) => {
+app.get("/api-rdv/dd", (req, res) => {
   res.json({ codigo: "golgo" });
 });
 
