@@ -13,25 +13,11 @@ var pool = mysql.createPool({
 
 app.use(cors());
 
-function consulta() {
-  pool.query(
-    "SELECT * FROM contents LIMIT 10",
-    function (error, results, fields) {
-      if (error) throw error;
-      console.log("The solution is: ", results);
-    }
-  );
-}
-consulta();
-
 app.get("/api1/", (req, res) => {
-  pool.query(
-    "SELECT * FROM contents LIMIT 10",
-    function (error, results, fields) {
-      if (error) throw error;
-      res.json({ codigo: "1", results });
-    }
-  );
+  pool.query("SELECT * FROM post LIMIT 10", function (error, results, fields) {
+    if (error) throw error;
+    res.json({ codigo: "1", results });
+  });
 });
 
 app.get("/api1/bb", (req, res) => {
@@ -40,6 +26,10 @@ app.get("/api1/bb", (req, res) => {
 
 app.get("/api1/cc", (req, res) => {
   res.json({ codigo: "cc" });
+});
+
+app.get("/api1/dd", (req, res) => {
+  res.json({ codigo: "dd" });
 });
 
 // Default port: 8080
