@@ -83,8 +83,8 @@ app.put("/api-rdv/contenido/", (req, res) => {
     const imagenData = {};
     if (imagen.length > 0) {
       imagenData = {
-        imageBase64: payload.imagen[0][0].base64,
-        imageExtension: payload.imagen[0][0].extension,
+        image_base64: imagen[0][0].base64,
+        image_extension: imagen[0][0].extension,
       };
     }
 
@@ -96,8 +96,6 @@ app.put("/api-rdv/contenido/", (req, res) => {
       content_html: contenido,
       // content_image: JSON.stringify(imagen[0][0]),
       content_image: "-",
-      image_base64: imagen[0][0].base64,
-      image_extension: imagen[0][0].extension,
       markMain: marcarPrincipal,
       ...imagenData,
     };
