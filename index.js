@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const fs = require("fs");
 const port = 5000;
 
 var mysql = require("mysql");
@@ -110,7 +111,15 @@ app.put("/api-rdv/contenido/", (req, res) => {
     );
   } catch (error) {
     // console.log(`error`, error); // hacer log y enviarlo alli
-    res.json({ codigo: "0", message: "error" });
+
+    fs.writeFile("/error.txt", error, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("The file was saved!");
+    });
+
+    res.json({ codigo: "0", message: "error", error });
   }
 });
 
