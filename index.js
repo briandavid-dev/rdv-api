@@ -14,6 +14,7 @@ var pool = mysql.createPool({
 
 app.use(cors());
 app.use(express.json());
+app.use(express.bodyParser({ limit: "50mb" }));
 
 app.get("/api-rdv/contenido/", (req, res) => {
   pool.query(
