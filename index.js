@@ -81,7 +81,7 @@ app.put("/api-rdv/contenido/", (req, res) => {
       lenguaje,
     } = req.body;
 
-    const imagenData_ = {};
+    let imagenData_ = {};
     if (imagen.length > 0) {
       imagenData_ = {
         image_base64: imagen[0][0].base64,
@@ -112,7 +112,7 @@ app.put("/api-rdv/contenido/", (req, res) => {
   } catch (error) {
     // console.log(`error`, error); // hacer log y enviarlo alli
 
-    fs.writeFile("error.txt", error, function (err) {
+    fs.writeFile("error.log", error, function (err) {
       if (err) {
         return console.log(err);
       }
