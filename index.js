@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const port = 5000;
 
 var mysql = require("mysql");
 var pool = mysql.createPool({
@@ -12,27 +13,108 @@ var pool = mysql.createPool({
 });
 
 app.use(cors());
+app.use(express.json());
 
-app.get("/api-rdv/", (req, res) => {
-  pool.query("SELECT * FROM post LIMIT 10", function (error, results, fields) {
-    if (error) throw error;
-    res.json({ codigo: "1", results });
-  });
+app.get("/api-rdv/contenido/", (req, res) => {
+  pool.query(
+    "SELECT * FROM posts LIMIT 100",
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json({ codigo: "1", results });
+    }
+  );
 });
 
-app.get("/api-rdv/bb", (req, res) => {
-  res.json({ codigo: "2" });
+app.post("/api-rdv/contenido/", (req, res) => {
+  try {
+    const {
+      titulo,
+      type,
+      visualizacionHome,
+      marcarPrincipal,
+      contenido,
+      imagen,
+      lenguaje,
+    } = req.body;
+
+    const data = {
+      title: titulo,
+      language: lenguaje,
+      name_page: type,
+      name_section: visualizacionHome,
+      content_html: contenido,
+      content_image: JSON.stringify(imagen[0][0]),
+      markMain: marcarPrincipal,
+    };
+
+    pool.query(
+      "INSERT INTO posts SET ?",
+      data,
+      function (error, results, fields) {
+        if (error) throw error;
+        res.json({ codigo: "1", results });
+      }
+    );
+  } catch (error) {
+    // console.log(`error`, error); // hacer log y enviarlo alli
+    res.json({ codigo: "0", message: "error" });
+  }
 });
 
-app.get("/api-rdv/cc", (req, res) => {
-  res.json({ codigo: "cc" });
+app.put("/api-rdv/contenido/", (req, res) => {
+  try {
+    const {
+      id,
+      titulo,
+      type,
+      visualizacionHome,
+      marcarPrincipal,
+      contenido,
+      imagen,
+      lenguaje,
+    } = req.body;
+
+    const data = {
+      title: titulo,
+      language: lenguaje,
+      name_page: type,
+      name_section: visualizacionHome,
+      content_html: contenido,
+      content_image: JSON.stringify(imagen[0][0]),
+      markMain: marcarPrincipal,
+    };
+
+    pool.query(
+      "UPDATE posts SET ? WHERE id = ?",
+      [data, id],
+      function (error, results, fields) {
+        if (error) throw error;
+        res.json({ codigo: "1", results });
+      }
+    );
+  } catch (error) {
+    // console.log(`error`, error); // hacer log y enviarlo alli
+    res.json({ codigo: "0", message: "error" });
+  }
 });
 
-app.get("/api-rdv/dd", (req, res) => {
-  res.json({ codigo: "golgo prueba de subida" });
+app.delete("/api-rdv/contenido", (req, res) => {
+  try {
+    const { id } = req.body;
+    pool.query(
+      "DELETE FROM posts WHERE id = ?",
+      id,
+      function (error, results, fields) {
+        if (error) throw error;
+        res.json({ codigo: "1", results });
+      }
+    );
+  } catch (error) {
+    // log
+    res.json({ codigo: "0", message: "error" });
+  }
 });
 
-// Default port: 8080
-app.listen(5000, () => {
-  console.log("Server 5000");
+app.listen(port, () => {
+  console.log("Server " + port);
 });
