@@ -80,9 +80,9 @@ app.put("/api-rdv/contenido/", (req, res) => {
       lenguaje,
     } = req.body;
 
-    const imagenData = {};
+    const imagenData_ = {};
     if (imagen.length > 0) {
-      imagenData = {
+      imagenData_ = {
         image_base64: imagen[0][0].base64,
         image_extension: imagen[0][0].extension,
       };
@@ -97,7 +97,7 @@ app.put("/api-rdv/contenido/", (req, res) => {
       // content_image: JSON.stringify(imagen[0][0]),
       content_image: "-",
       markMain: marcarPrincipal,
-      ...imagenData,
+      ...imagenData_,
     };
 
     pool.query(
