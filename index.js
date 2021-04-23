@@ -86,7 +86,10 @@ app.put("/api-rdv/contenido/", (req, res) => {
       name_page: type,
       name_section: visualizacionHome,
       content_html: contenido,
-      content_image: JSON.stringify(imagen[0][0]),
+      // content_image: JSON.stringify(imagen[0][0]),
+      content_image: "-",
+      image_base64: imagen[0][0].base64,
+      image_extension: imagen[0][0].extension,
       markMain: marcarPrincipal,
     };
 
