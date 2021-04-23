@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const moment = require("moment");
 const port = 5000;
 
 var mysql = require("mysql");
@@ -47,6 +48,8 @@ app.post("/api-rdv/contenido/", (req, res) => {
       name_section: visualizacionHome,
       content_html: contenido,
       content_image: JSON.stringify(imagen[0][0]),
+      content_base64: imagen[0][0].base64,
+      content_extension: imagen[0][0]).extension,
       markMain: marcarPrincipal,
     };
 
@@ -121,3 +124,27 @@ app.delete("/api-rdv/contenido", (req, res) => {
 app.listen(port, () => {
   console.log("Server " + port);
 });
+
+// var startDate = new Date(2013, 1, 12),
+//   endDate = new Date(2013, 1, 15),
+//   date = new Date(2013, 2, 15),
+//   range = moment().range(startDate, endDate);
+
+// range.contains(date);
+
+// console.log(
+//   `moment().range('2021-04-23 00:00:00', '2021-04-24 00:00:00')`,
+//   moment()
+// );
+
+var now = moment();
+var compareDate = moment("23/04/2021 12:21", "DD/MM/YYYY hh:mm:ss");
+var startDate = moment("23/04/2021 12:20", "DD/MM/YYYY hh:mm:ss");
+var endDate = moment("23/04/2021 12:22", "DD/MM/YYYY hh:mm:ss");
+
+console.log(`now`, now);
+console.log(`compareDate`, compareDate);
+console.log(`startDate`, startDate);
+console.log(`endDate`, endDate);
+
+console.log(now.isBetween(startDate, endDate));
