@@ -80,6 +80,14 @@ app.put("/api-rdv/contenido/", (req, res) => {
       lenguaje,
     } = req.body;
 
+    const imagen = {};
+    if (imagen.length > 0) {
+      imagen = {
+        imageBase64: payload.imagen[0][0].base64,
+        imageExtension: payload.imagen[0][0].extension,
+      };
+    }
+
     const data = {
       title: titulo,
       language: lenguaje,
@@ -91,6 +99,7 @@ app.put("/api-rdv/contenido/", (req, res) => {
       image_base64: imagen[0][0].base64,
       image_extension: imagen[0][0].extension,
       markMain: marcarPrincipal,
+      ...imagen,
     };
 
     pool.query(
