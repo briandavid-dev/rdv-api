@@ -112,14 +112,14 @@ app.put("/api-rdv/contenido/", (req, res) => {
   } catch (error) {
     // console.log(`error`, error); // hacer log y enviarlo alli
 
-    fs.writeFile("/error.txt", error, function (err) {
+    fs.writeFile("error.txt", error, function (err) {
       if (err) {
         return console.log(err);
       }
       console.log("The file was saved!");
     });
 
-    res.json({ codigo: "0", message: "error", error });
+    res.json({ codigo: "0", message: "error", error: JSON.stringify(error) });
   }
 });
 
