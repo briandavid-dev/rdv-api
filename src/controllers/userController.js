@@ -1,3 +1,4 @@
+const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -88,7 +89,11 @@ module.exports.login = (req, res) => {
       });
     }
   } catch (error) {
-    console.log(`error`, error);
+    fs.writeFile("error.log", error, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+    });
     return res.status(400).json({
       codigo: "0",
       error,
