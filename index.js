@@ -10,8 +10,8 @@ const routes = {
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
-app.use("/api-rdv/home", routes.home);
-app.use("/api-rdv/", routes.contenido);
+app.use("/services-rdv/home", routes.home);
+app.use("/services-rdv/", routes.contenido);
 
 app.listen(port, () => {
   console.log("Server " + port);
