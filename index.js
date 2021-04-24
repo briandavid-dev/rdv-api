@@ -4,8 +4,8 @@ const cors = require("cors");
 const port = 5000;
 
 const routes = {
-  contenido: require("./routes/contenido"),
-  home: require("./routes/home"),
+  contenido: require("./src/routes/contenido"),
+  home: require("./src/routes/home"),
 };
 
 app.use(cors());

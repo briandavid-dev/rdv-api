@@ -2,7 +2,7 @@
   "name": "rdv-api",
   "version": "1.0.0",
   "description": "RDV API REST",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index"
   },
