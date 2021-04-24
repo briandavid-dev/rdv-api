@@ -21,6 +21,7 @@ module.exports.post = (req, res) => {
       contenido,
       imagen,
       lenguaje,
+      summary,
     } = req.body;
 
     const data = {
@@ -34,6 +35,7 @@ module.exports.post = (req, res) => {
       image_base64: imagen[0][0].base64,
       image_extension: imagen[0][0].extension,
       markMain: marcarPrincipal,
+      summary,
     };
 
     pool.query(
@@ -61,6 +63,7 @@ module.exports.update = (req, res) => {
       contenido,
       imagen,
       lenguaje,
+      summary,
     } = req.body;
 
     let imagenData_ = {};
@@ -74,6 +77,7 @@ module.exports.update = (req, res) => {
     const data = {
       title: titulo,
       language: lenguaje,
+      summary,
       name_page: type,
       name_section: visualizacionHome,
       content_html: contenido,

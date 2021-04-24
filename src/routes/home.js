@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const homeController = require("../controllers/homeController");
 
-router.get("/", (req, res) => {
-  res.json({ incre: "iblre" });
-});
+router.get("/noticias/:lang", homeController.getNoticias);
 
 module.exports = router;
