@@ -1,25 +1,7 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
 const fs = require("fs");
-const port = 5000;
+const { pool } = require("../config/database");
 
-var mysql = require("mysql");
-var pool = mysql.createPool({
-  connectionLimit: 10,
-  host: "51.161.116.237",
-  user: "bmosoluc_rdv_user",
-  password: "RDVrdv..1324",
-  database: "bmosoluc_rdv_web_cms",
-});
-
-app.use(cors());
-// app.use(express.json());
-// app.use(express.bodyParser({ limit: "50mb" }));
-
-app.use(express.json({ limit: "50mb" }));
-
-app.get("/api-rdv/contenido/", (req, res) => {
+module.exports.get = (req, res) => {
   pool.query(
     "SELECT * FROM posts LIMIT 100",
     function (error, results, fields) {
@@ -27,9 +9,9 @@ app.get("/api-rdv/contenido/", (req, res) => {
       res.json({ codigo: "1", results });
     }
   );
-});
+};
 
-app.post("/api-rdv/contenido/", (req, res) => {
+module.exports.post = (req, res) => {
   try {
     const {
       titulo,
@@ -66,9 +48,9 @@ app.post("/api-rdv/contenido/", (req, res) => {
     // console.log(`error`, error); // hacer log y enviarlo alli
     res.json({ codigo: "0", message: "error" });
   }
-});
+};
 
-app.put("/api-rdv/contenido/", (req, res) => {
+module.exports.update = (req, res) => {
   try {
     const {
       id,
@@ -121,9 +103,9 @@ app.put("/api-rdv/contenido/", (req, res) => {
 
     res.json({ codigo: "0", message: "error", error: JSON.stringify(error) });
   }
-});
+};
 
-app.delete("/api-rdv/contenido", (req, res) => {
+module.exports.delete = (req, res) => {
   try {
     const { id } = req.body;
     pool.query(
@@ -138,8 +120,4 @@ app.delete("/api-rdv/contenido", (req, res) => {
     // log
     res.json({ codigo: "0", message: "error" });
   }
-});
-
-app.listen(port, () => {
-  console.log("Server " + port);
-});
+};
