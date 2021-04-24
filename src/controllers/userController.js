@@ -51,10 +51,19 @@ module.exports.login = (req, res) => {
 
     const usuarioExistente = {
       id: 10,
-      password: "$2b$10$4W9Z.BNDqczLmoVzIh6hJOTpBP0ZW7FMqYHBAg1wpETJ1eKudxohC",
-      email: "otromas@q.com",
-      name: "David Ferrer",
+      password: "$2b$10$YYDy4T1HtsWIsF0dDSHDJ.xmbRi8AY/MjM98DvC3ZcJJZ1bL4aREK",
+      email: "ron@gmail.com",
+      name: "David Ochoa",
+      empresa: "Ron de Venezuela",
     };
+
+    if (password !== "ron.0421" || email !== "ron@gmail.com") {
+      return res.status(200).json({
+        codigo: "0",
+        mensaje:
+          "¡Tu email o contraseña son incorrectos, por favor, veríficalo!",
+      });
+    }
 
     if (bcrypt.compareSync(password, usuarioExistente.password)) {
       const token = jwt.sign(
