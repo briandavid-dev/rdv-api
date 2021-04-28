@@ -1,5 +1,9 @@
 const { pool } = require("../config/database");
 
+let responseAllNoticias0 = {};
+let responseAllNoticias1 = {};
+let lenguaje = "";
+
 module.exports.getNoticias = (req, res) => {
   const { lang } = req.params;
 
@@ -11,6 +15,16 @@ module.exports.getNoticias = (req, res) => {
     });
     return;
   }
+
+  /* if (
+    JSON.stringify(responseAllNoticias0) ===
+    JSON.stringify(responseAllNoticias1)
+  ) {
+    res.status(201).json({
+      codigo: "1",
+      results: { circulo: responseAllNoticias0, cuadro: responseAllNoticias1 },
+    });
+  } */
 
   const query = `
     SELECT id, title, summary, name_section, created_at, image_extension , image_base64
@@ -32,9 +46,29 @@ module.exports.getNoticias = (req, res) => {
 
   pool.query(query, function (error, results, fields) {
     if (error) throw error;
+
+    const results0_ = results[0].map((noticia) => {
+      const url = noticia.title.replace(/ /g, "-");
+      return {
+        url,
+        ...noticia,
+      };
+    });
+
+    const results1_ = results[1].map((noticia) => {
+      const url = noticia.title.replace(/ /g, "-");
+      return {
+        url,
+        ...noticia,
+      };
+    });
+
+    responseAllNoticias0 = results0_;
+    responseAllNoticias1 = results1_;
+
     res.json({
       codigo: "1",
-      results: { circulo: results[0], cuadro: results[1] },
+      results: { circulo: responseAllNoticias0, cuadro: responseAllNoticias1 },
     });
   });
 };

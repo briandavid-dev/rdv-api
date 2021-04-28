@@ -147,3 +147,46 @@ module.exports.getNoticia = (req, res) => {
     });
   });
 };
+
+module.exports.getNoticiasExcept = (req, res) => {
+  const { lang, url } = req.params;
+
+  const listLang = ["es", "en"];
+  if (!listLang.includes(lang)) {
+    res.json({
+      codigo: "0",
+      error: "lang fuera de rango",
+    });
+    return;
+  }
+
+  const url_ = url.replace(/-/g, " ");
+
+  const query = `
+    SELECT id, language, title, summary, name_section, created_at, image_extension, content_html, image_base64
+    FROM posts
+    WHERE language = '${lang}'
+    AND name_page = 'noticias'
+    AND title != '${url_}'
+    ORDER BY created_at DESC
+    LIMIT 20;
+    `;
+
+  pool.query(query, function (error, results, fields) {
+    if (error) throw error;
+
+    const results_ = results.map((noticia) => {
+      const url = noticia.title.replace(/ /g, "-");
+      return {
+        url,
+        ...noticia,
+      };
+    });
+
+    responseAllNoticias = {
+      codigo: "1",
+      results: results_,
+    };
+    res.json(responseAllNoticias);
+  });
+};

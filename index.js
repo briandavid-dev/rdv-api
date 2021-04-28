@@ -20,3 +20,9 @@ app.use("/services-rdv/", routes.noticias);
 app.listen(process.env.SERVER_PORT, () => {
   console.log("Server " + process.env.SERVER_PORT);
 });
+
+const a = [{ a: 1 }, { b: 22 }];
+const b = [{ a: 1 }, { b: 2 }];
+
+console.log(`compare`, a === b);
+console.log(`compare`, JSON.stringify(a) === JSON.stringify(b));
