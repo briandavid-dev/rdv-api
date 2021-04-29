@@ -2,8 +2,10 @@ const fs = require("fs");
 const { pool } = require("../config/database");
 
 module.exports.get = (req, res) => {
+  const { type } = req.params;
+
   pool.query(
-    "SELECT * FROM posts LIMIT 100",
+    `SELECT * FROM posts WHERE name_page = '${type}' LIMIT 100`,
     function (error, results, fields) {
       if (error) throw error;
       res.json({ codigo: "1", results });
