@@ -20,7 +20,7 @@ module.exports.getEmpresa = (req, res) => {
     `SELECT * FROM posts WHERE id = '${id}' AND name_page = 'empresas'`,
     function (error, results, fields) {
       if (error) throw error;
-      res.json({ codigo: "1", results });
+      res.json({ codigo: "1", empresa: results[0] });
     }
   );
 };
