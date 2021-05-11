@@ -12,3 +12,15 @@ module.exports.get = (req, res) => {
     }
   );
 };
+
+module.exports.getEmpresa = (req, res) => {
+  const { id } = req.params;
+
+  pool.query(
+    `SELECT * FROM posts WHERE id = '${id}' AND name_page = 'empresas'`,
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json({ codigo: "1", results });
+    }
+  );
+};
