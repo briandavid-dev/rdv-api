@@ -73,13 +73,18 @@ module.exports.updateProducto = (req, res) => {
       id,
     } = req.body;
 
+    const image = {};
+    if (image_extension !== null) {
+      image.image_extension = image_extension;
+      image.image_base64 = image_base64;
+    }
+
     pool.query(
       "UPDATE products SET ? WHERE id = ?",
       [
         {
           name,
-          image_extension,
-          image_base64,
+          ...image,
           language,
           empresa_id,
           content_html,
