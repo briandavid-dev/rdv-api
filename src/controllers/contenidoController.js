@@ -104,7 +104,6 @@ module.exports.update = (req, res) => {
       if (err) {
         return console.log(err);
       }
-      console.log("The file was saved!");
     });
 
     res.json({ codigo: "0", message: "error", error: JSON.stringify(error) });
