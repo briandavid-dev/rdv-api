@@ -8,6 +8,6 @@ router.post("/empresa/producto/", empresasController.insertProducto);
 router.put("/empresa/producto/", empresasController.updateProducto);
 router.delete("/empresa/producto/", empresasController.deleteProducto);
 router.get("/empresa/producto/", empresasController.getProducto);
-router.get("/empresa/:id/productos/", empresasController.getProductos);
+router.get("/empresa/:id/productos/:type", empresasController.getProductos);
 
 module.exports = router;

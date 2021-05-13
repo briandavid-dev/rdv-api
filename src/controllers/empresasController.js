@@ -153,19 +153,21 @@ module.exports.getProducto = (req, res) => {
 };
 
 module.exports.getProductos = (req, res) => {
-  const { id } = req.params;
+  const { id, type } = req.params;
+
+  const text_type = type === "productos" ? "productos" : "premios";
 
   try {
     pool.query(
-      "SELECT * FROM products WHERE empresa_id = ? LIMIT 100",
-      id,
+      "SELECT * FROM products WHERE empresa_id = ? AND type = ? LIMIT 100",
+      [id, type],
       function (error, results, fields) {
         if (error) throw error;
 
         const mensaje =
           results.length > 0
-            ? `${results.length} producto${results.length > 1 ? "s" : ""}`
-            : "Esta empresa no tiene productos asociados";
+            ? `${results.length} resultado${results.length > 1 ? "s" : ""}`
+            : `Esta empresa no tiene ${text_type} asociados`;
 
         res.json({ codigo: "1", mensaje, results });
       }
