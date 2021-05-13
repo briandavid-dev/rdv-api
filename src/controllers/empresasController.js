@@ -34,6 +34,7 @@ module.exports.insertProducto = (req, res) => {
       language,
       empresa_id,
       content_html,
+      type,
     } = req.body;
 
     pool.query(
@@ -45,6 +46,7 @@ module.exports.insertProducto = (req, res) => {
         language,
         empresa_id,
         content_html,
+        type,
       },
       function (error, results, fields) {
         if (error) throw error;
