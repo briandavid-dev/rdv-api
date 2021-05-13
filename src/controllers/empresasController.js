@@ -160,7 +160,7 @@ module.exports.getProductos = (req, res) => {
   try {
     pool.query(
       "SELECT * FROM products WHERE ? LIMIT 100",
-      { empresa_id: id, type },
+      [{ empresa_id: id, type }],
       function (error, results, fields) {
         if (error) throw error;
 
