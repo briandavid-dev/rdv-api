@@ -24,6 +24,7 @@ module.exports.post = (req, res) => {
       imagen,
       lenguaje,
       summary,
+      url,
     } = req.body;
 
     const data = {
@@ -38,6 +39,7 @@ module.exports.post = (req, res) => {
       image_extension: imagen[0][0].extension,
       markMain: marcarPrincipal,
       summary,
+      url,
     };
 
     pool.query(
@@ -45,11 +47,15 @@ module.exports.post = (req, res) => {
       data,
       function (error, results, fields) {
         if (error) throw error;
-        res.json({ codigo: "1", results });
+        res.status(200).json({ codigo: "1", results });
       }
     );
   } catch (error) {
-    // console.log(`error`, error); // hacer log y enviarlo alli
+    fs.writeFile("error.log", error, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+    });
     res.json({ codigo: "0", message: "error" });
   }
 };
@@ -66,6 +72,7 @@ module.exports.update = (req, res) => {
       imagen,
       lenguaje,
       summary,
+      url,
     } = req.body;
 
     let imagenData_ = {};
@@ -87,6 +94,7 @@ module.exports.update = (req, res) => {
       content_image: "-",
       markMain: marcarPrincipal,
       ...imagenData_,
+      url,
     };
 
     pool.query(
@@ -94,12 +102,10 @@ module.exports.update = (req, res) => {
       [data, id],
       function (error, results, fields) {
         if (error) throw error;
-        res.json({ codigo: "1", results });
+        res.status(200).json({ codigo: "1", results });
       }
     );
   } catch (error) {
-    // console.log(`error`, error); // hacer log y enviarlo alli
-
     fs.writeFile("error.log", error, function (err) {
       if (err) {
         return console.log(err);
