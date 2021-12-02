@@ -27,7 +27,8 @@ module.exports.getOne = (req, res) => {
 module.exports.post = (req, res) => {
   console.log("BEGIN post");
   try {
-    const { title, info, language, image_base64, image_extension } = req.body;
+    const { title, info, language, imagen } = req.body;
+    console.log("req.body", req.body);
 
     pool.query(
       "INSERT INTO run_masters SET ?",
@@ -35,8 +36,8 @@ module.exports.post = (req, res) => {
         title,
         info,
         language,
-        image_base64,
-        image_extension,
+        image_base64: imagen[0][0].base64,
+        image_extension: imagen[0][0].extension,
       },
       function (error, results, fields) {
         if (error) throw error;
@@ -49,6 +50,7 @@ module.exports.post = (req, res) => {
         return console.log(err);
       }
     });
+
     res.json({ codigo: "0", message: "error" });
   }
 };
@@ -56,13 +58,15 @@ module.exports.post = (req, res) => {
 module.exports.put = (req, res) => {
   console.log("BEGIN put");
   try {
-    const { title, info, language, image_base64, image_extension } = req.body;
+    const { title, info, language, imagen } = req.body;
     const { id } = req.params;
 
     const image = {};
-    if (image_extension !== null) {
-      image.image_extension = image_extension;
-      image.image_base64 = image_base64;
+    if (imagen.length > 0) {
+      // image.image_extension = image_extension;
+      // image.image_base64 = image_base64;
+      image.image_extension = imagen[0][0].extension;
+      image.image_base64 = imagen[0][0].base64;
     }
 
     pool.query(
@@ -72,8 +76,6 @@ module.exports.put = (req, res) => {
           title,
           info,
           language,
-          image_base64,
-          image_extension,
           ...image,
         },
         id,
@@ -97,6 +99,7 @@ module.exports.delete = (req, res) => {
   console.log("BEGIN delete");
   try {
     const { id } = req.params;
+    console.log("id", id);
 
     pool.query("DELETE FROM run_masters WHERE id = ?", [id], function (error, results, fields) {
       if (error) throw error;
