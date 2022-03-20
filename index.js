@@ -10,6 +10,7 @@ const routes = {
   noticias: require("./src/routes/noticias"),
   empresas: require("./src/routes/empresas"),
   runmasters: require("./src/routes/runmasters"),
+  aboutus: require("./src/routes/aboutus"),
 };
 
 app.use(cors());
@@ -20,6 +21,7 @@ app.use("/services-rdv/users", routes.users);
 app.use("/services-rdv/", routes.noticias);
 app.use("/services-rdv/", routes.empresas);
 app.use("/services-rdv/runmasters", routes.runmasters);
+app.use("/services-rdv/aboutus", routes.aboutus);
 
 app.listen(process.env.PORT, () => {
   console.log("Server " + process.env.PORT);
