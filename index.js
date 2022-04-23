@@ -16,14 +16,14 @@ const routes = {
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
-app.use("/services-rdv/home", routes.home);
-app.use("/services-rdv/", routes.contenido);
-app.use("/services-rdv/users", routes.users);
-app.use("/services-rdv/", routes.noticias);
-app.use("/services-rdv/", routes.empresas);
-app.use("/services-rdv/runmasters", routes.runmasters);
-app.use("/services-rdv/aboutus", routes.aboutus);
-app.use("/services-rdv/doc", routes.doc);
+app.use("/api-services-rdv/home", routes.home);
+app.use("/api-services-rdv/", routes.contenido);
+app.use("/api-services-rdv/users", routes.users);
+app.use("/api-services-rdv/", routes.noticias);
+app.use("/api-services-rdv/", routes.empresas);
+app.use("/api-services-rdv/runmasters", routes.runmasters);
+app.use("/api-services-rdv/aboutus", routes.aboutus);
+app.use("/api-services-rdv/doc", routes.doc);
 
 app.listen(process.env.PORT, () => {
   console.log("Server " + process.env.PORT);
