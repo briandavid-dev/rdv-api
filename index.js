@@ -16,14 +16,19 @@ const routes = {
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
-app.use("/api-services-rdv/home", routes.home);
-app.use("/api-services-rdv/", routes.contenido);
-app.use("/api-services-rdv/users", routes.users);
-app.use("/api-services-rdv/", routes.noticias);
-app.use("/api-services-rdv/", routes.empresas);
-app.use("/api-services-rdv/runmasters", routes.runmasters);
-app.use("/api-services-rdv/aboutus", routes.aboutus);
-app.use("/api-services-rdv/doc", routes.doc);
+app.use("/rdv-api-services/home", routes.home);
+app.use("/rdv-api-services/", routes.contenido);
+app.use("/rdv-api-services/users", routes.users);
+app.use("/rdv-api-services/", routes.noticias);
+app.use("/rdv-api-services/", routes.empresas);
+app.use("/rdv-api-services/runmasters", routes.runmasters);
+app.use("/rdv-api-services/aboutus", routes.aboutus);
+app.use("/rdv-api-services/doc", routes.doc);
+
+// TEST SERVER
+app.get("/rdv-api-services", (req, res) => {
+  res.json({ codigo: "1", message: "rdv-api-services it´s ok" });
+});
 
 app.listen(process.env.PORT, () => {
   console.log("Server " + process.env.PORT);
