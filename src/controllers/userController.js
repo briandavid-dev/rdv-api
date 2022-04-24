@@ -58,7 +58,7 @@ module.exports.login = (req, res) => {
       empresa: "Ron de Venezuela",
     };
 
-    if (password !== "ron.0421" || email !== "ron@gmail.com") {
+    if (password !== process.env.USER_ADMIN_PASS || email !== process.env.USER_ADMIN_MAIL) {
       return res.status(200).json({
         codigo: "0",
         mensaje:

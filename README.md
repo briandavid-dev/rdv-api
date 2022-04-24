@@ -12,3 +12,7 @@ $ npm i
 # local
 $ npm run dev
 ```
+
+```bashv
+Show details in frontend README.md
+```
