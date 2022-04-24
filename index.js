@@ -27,7 +27,7 @@ app.use("/rdv-api-services/doc", routes.doc);
 
 // TEST SERVER
 app.get("/rdv-api-services", (req, res) => {
-  res.json({ codigo: "1", message: "rdv-api-services it´s ok" });
+  res.json({ codigo: "1", message: process.env.PORT+" rdv-api-services it´s ok" });
 });
 
 app.listen(process.env.PORT, () => {
