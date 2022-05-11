@@ -6,27 +6,33 @@ const { pool } = require("../config/database");
 module.exports.getAll = (req, res) => {
   console.log("BEGIN docController getAll");
 
-  pool.query(`SELECT * FROM doc ORDER BY lang, name_section ASC LIMIT 100`, function (error, results, fields) {
-    if (error) throw error;
+  pool.query(
+    `SELECT * FROM doc ORDER BY lang, name_section ASC LIMIT 100`,
+    function (error, results, fields) {
+      if (error) throw error;
 
-    const data = {};
+      const data = {};
 
-    results.forEach((result) => {
-      if (result.name_section === "regularizations") {
-        if (!data[result.lang]) {
-          data[result.lang] = {};
+      results.forEach((result) => {
+        if (result.name_section === "regularizations") {
+          if (!data[result.lang]) {
+            data[result.lang] = {};
+          }
+          data[result.lang] = {
+            regularizations: {
+              title: result.content,
+              files: JSON.parse(result.files).map((file) => ({
+                ...file,
+                id: uuidv4(),
+              })),
+            },
+          };
         }
-        data[result.lang] = {
-          regularizations: {
-            title: result.content,
-            files: JSON.parse(result.files).map((file) => ({ ...file, id: uuidv4() })),
-          },
-        };
-      }
-    });
+      });
 
-    res.json({ codigo: "1", data });
-  });
+      res.json({ codigo: "1", data });
+    }
+  );
 };
 
 module.exports.put = (req, res) => {
@@ -51,7 +57,9 @@ module.exports.put = (req, res) => {
     });
 
     const queryUpdate = `
-      UPDATE doc SET content = '${regularizations.title}', files = '${JSON.stringify(
+      UPDATE doc SET content = '${
+        regularizations.title
+      }', files = '${JSON.stringify(
       arrayFiles
     )}' WHERE name_section = 'regularizations' AND lang = '${lang}';
     `;
@@ -73,7 +81,10 @@ module.exports.put = (req, res) => {
 module.exports.getFile = (req, res) => {
   console.log("BEGIN docController getFile");
   const { fileName } = req.params;
-  const path_ = path.join(__dirname, `../../public/doc/attachments/${fileName}`);
+  const path_ = path.join(
+    __dirname,
+    `../../public/doc/attachments/${fileName}`
+  );
 
   if (!fs.existsSync(path_)) {
     res.status(404).json({ codigo: "0", message: "File not found" });
