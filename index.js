@@ -14,6 +14,7 @@ const routes = {
   doc: require("./src/routes/doc"),
   ourpeople: require("./src/routes/ourpeople"),
   history: require("./src/routes/history"),
+  rum: require("./src/routes/rum"),
 };
 
 app.use(cors());
@@ -28,6 +29,7 @@ app.use("/rdv-api-services/aboutus", routes.aboutus);
 app.use("/rdv-api-services/doc", routes.doc);
 app.use("/rdv-api-services/our-people", routes.ourpeople);
 app.use("/rdv-api-services/history", routes.history);
+app.use("/rdv-api-services/rum", routes.rum);
 
 // TEST SERVER
 app.get("/rdv-api-services", (req, res) => {
