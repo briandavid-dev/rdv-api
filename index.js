@@ -32,10 +32,11 @@ app.use("/rdv-api-services/history", routes.history);
 app.use("/rdv-api-services/rum", routes.rum);
 
 // TEST SERVER
+const today = new Date();
 app.get("/rdv-api-services", (req, res) => {
   res.json({
     codigo: "1",
-    message: process.env.PORT + " rdv-api-services it´s ok",
+    message: process.env.PORT + " rdv-api-services it´s ok. TODAY: " + today,
   });
 });
 app.get("/rdv-api-services/prueba", (req, res) => {
