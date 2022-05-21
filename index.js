@@ -19,17 +19,17 @@ const routes = {
 
 app.use(cors());
 app.use(express.json({ limit: "200mb" }));
-app.use("/rdv-api-services/home", routes.home);
-app.use("/rdv-api-services/", routes.contenido);
-app.use("/rdv-api-services/users", routes.users);
-app.use("/rdv-api-services/", routes.noticias);
-app.use("/rdv-api-services/", routes.empresas);
-app.use("/rdv-api-services/runmasters", routes.runmasters);
-app.use("/rdv-api-services/aboutus", routes.aboutus);
-app.use("/rdv-api-services/doc", routes.doc);
-app.use("/rdv-api-services/our-people", routes.ourpeople);
-app.use("/rdv-api-services/history", routes.history);
-app.use("/rdv-api-services/rum", routes.rum);
+app.use("/rdv-services/home", routes.home);
+app.use("/rdv-services/", routes.contenido);
+app.use("/rdv-services/users", routes.users);
+app.use("/rdv-services/", routes.noticias);
+app.use("/rdv-services/", routes.empresas);
+app.use("/rdv-services/runmasters", routes.runmasters);
+app.use("/rdv-services/aboutus", routes.aboutus);
+app.use("/rdv-services/doc", routes.doc);
+app.use("/rdv-services/our-people", routes.ourpeople);
+app.use("/rdv-services/history", routes.history);
+app.use("/rdv-services/rum", routes.rum);
 
 // TEST SERVER
 const today = new Date();
