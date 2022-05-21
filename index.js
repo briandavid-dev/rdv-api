@@ -38,6 +38,12 @@ app.get("/rdv-api-services", (req, res) => {
     message: process.env.PORT + " rdv-api-services it´s ok",
   });
 });
+app.get("/rdv-api-services/prueba", (req, res) => {
+  res.json({
+    codigo: "1",
+    message: process.env.PORT + " rdv-api-services/prueba it´s ok",
+  });
+});
 
 app.listen(process.env.PORT, () => {
   console.log("Server " + process.env.PORT);
